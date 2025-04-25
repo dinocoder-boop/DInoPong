@@ -8,8 +8,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MyFrame extends JFrame {
-    JPanel p;
     
+    JPanel p;
+    Rectangle ball;
+
 
 
     public MyFrame(){
@@ -31,10 +33,13 @@ public class MyFrame extends JFrame {
         this.setSize(400,250);  //impsoto una grandezza iniziale
         this.setVisible(true);     //lo rendo visibile
         this.setResizable(true);   //lo rendo modellabile
+        p.setBackground(Color.BLACK);  //
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
     }
+
 
 
 
