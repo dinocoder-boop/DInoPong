@@ -5,15 +5,14 @@ import javax.swing.*;
 
 public class MyFrame extends JFrame {
     
-    JPanel p;
-    Rectangle ball;
+    MyPanel p;
 
 
 
     public MyFrame(){
 
 
-        p = new JPanel();//insatnzio parete
+        p = new MyPanel();//insatnzio parete
 
         //JLabel l = new JLabel("inzio del tutto");  //creo etichetta
         //JButton b = new JButton("premimi per fare nulla"); //creo bottone
@@ -29,7 +28,7 @@ public class MyFrame extends JFrame {
         this.setSize(400,250);  //impsoto una grandezza iniziale
         this.setVisible(true);     //lo rendo visibile
         this.setResizable(true);   //lo rendo modellabile
-        p.setBackground(Color.BLACK);  //
+
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
