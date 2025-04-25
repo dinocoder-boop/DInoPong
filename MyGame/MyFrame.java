@@ -1,11 +1,7 @@
 package MyGame;
 
 import java.awt.*;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class MyFrame extends JFrame {
     
