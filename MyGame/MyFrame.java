@@ -25,6 +25,8 @@ public class MyFrame extends JFrame {
         //p.add(l);   //aggiungo l'etichetta
         //p.add(b); //aggiungo il bottone
 
+        JButton b = new JButton("cliccami");
+
         this.setSize(400,250);  //impsoto una grandezza iniziale
         this.setVisible(true);     //lo rendo visibile
         this.setResizable(true);   //lo rendo modellabile
