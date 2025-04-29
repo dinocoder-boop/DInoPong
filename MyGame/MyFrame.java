@@ -9,9 +9,11 @@ public class MyFrame extends JFrame {
 
 
 
+
     public MyFrame(){
 
 
+        
         p = new MyPanel();//insatnzio parete
 
         //JLabel l = new JLabel("inzio del tutto");  //creo etichetta
@@ -27,7 +29,7 @@ public class MyFrame extends JFrame {
 
         JButton b = new JButton("cliccami");
 
-        this.setSize(400,250);  //impsoto una grandezza iniziale
+    this.pack();
         this.setVisible(true);     //lo rendo visibile
         this.setResizable(true);   //lo rendo modellabile
 
