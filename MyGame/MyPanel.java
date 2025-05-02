@@ -8,8 +8,12 @@ public class MyPanel extends JPanel implements Runnable{
     
     Thread gameThread;  //crea un oggetto Thread per permettere un processo 
     
-    Ball pallinaCheNonCeLhaFatta;  //crea un oggeto di tipo Ball
-
+    //Ball pallinaCheNonCeLhaFatta;  //crea un oggeto di tipo Ball
+    int ballH = 10;
+    int ballL = 10;
+    int nBall = 150;
+    Ball[] palline = new Ball[nBall];
+    
     int W = 1200;
     int H = 1200;
    Dimension Area = new Dimension(W,H);
@@ -30,7 +34,11 @@ public class MyPanel extends JPanel implements Runnable{
         this.setFocusable(true);        
         this.setPreferredSize(Area);
 
-        pallinaCheNonCeLhaFatta = new Ball(X.nextInt(450),Y.nextInt(450),10,10); //creazione della pallina (che non c'è l'ha fatta nemmeno questa volta)
+        //pallinaCheNonCeLhaFatta = new Ball(X.nextInt(450),Y.nextInt(450),10,10); //creazione della pallina (che non c'è l'ha fatta nemmeno questa volta)
+
+        for (int i=0; i< nBall; i++)
+        palline[i] = new Ball(320,240,ballH,ballL, i);
+    
 
     }//chiude il costruttore
 
@@ -38,18 +46,47 @@ public class MyPanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g){
 
         super.paintComponent(g);
-        pallinaCheNonCeLhaFatta.draw(g); //colorazione della pallina (a fare questo c'è l'ha fatta)
+        
+        //pallinaCheNonCeLhaFatta.draw(g); //colorazione della pallina (a fare questo c'è l'ha fatta)
+
+        for (int i=0; i< nBall; i++)
+        palline[i].draw(g);
+    
 
         Toolkit.getDefaultToolkit().sync();
     }//chiude paintComponent
+
+
+    public void move(){
+
+        for(int i=0; i<nBall; i++)
+            palline[i].move();
+
+
+    }
+
+    public void checkCollisions() {
+		
+		for (int i=0; i< nBall; i++) {
+			
+			if (palline[i].x < 0) palline[i].dx = -palline[i].dx;
+			if (palline[i].x > W - ballL) palline[i].dx = -palline[i].dx;
+			if (palline[i].y < 0) palline[i].dy = -palline[i].dy;
+			if (palline[i].y > H - ballH) palline[i].dy = -palline[i].dy;
+	
+		}
+		
+	}
+
 
     public void run(){
 
         long lastTime = System.nanoTime();
 
-        double FPS = 5;
+        double FPS = 25;
 
-        double interval = 0;
+        double interval = 1000000000/FPS; // 400000000
+		
 
     
         while(true){
@@ -62,7 +99,9 @@ public class MyPanel extends JPanel implements Runnable{
 
             if(interval >= 40000000){
 
-                pallinaCheNonCeLhaFatta.move();
+                move();
+
+                checkCollisions();
 
                 repaint();
 
@@ -74,4 +113,4 @@ public class MyPanel extends JPanel implements Runnable{
    
     }//chiude il run
 
-}//chiude la classe 
+}//chiude la classe
