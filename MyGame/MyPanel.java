@@ -29,7 +29,7 @@ public class MyPanel extends JPanel implements Runnable{
         this.setBackground(Color.BLACK);
         this.setPreferredSize(SCREEN_SIZE);
 
-        pallinaCheNonCeLhaFatta = new Ball(320, 240, BALL_WIDTH, BALL_HEIGHT);
+        pallinaCheNonCeLhaFatta = new Ball((GAME_WIDTH/2-BALL_WIDTH/2),(GAME_HEIGHT/2-BALL_HEIGHT/2), BALL_WIDTH, BALL_HEIGHT);
 
         gameThread = new Thread(this);
         gameThread.start();
