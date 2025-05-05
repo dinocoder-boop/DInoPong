@@ -29,7 +29,11 @@ public class MyFrame extends JFrame {
         this.setVisible(true);     //lo rendo visibile
    //lo rendo modellabile
 
- this.pack();
+    this.pack();
+
+    this.setMinimumSize(new Dimension(400, 400));
+
+
 
         this.setResizable(true);
 
