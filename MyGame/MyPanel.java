@@ -1,44 +1,38 @@
 package MyGame;
 
 import java.awt.*;
-import javax.swing.*;
 import java.util.Random;
 
-public class MyPanel extends JPanel implements Runnable{
-    
-    Thread gameThread;  //crea un oggetto Thread per permettere un processo 
-    
-    //Ball pallinaCheNonCeLhaFatta;  //crea un oggeto di tipo Ball
-    int ballH = 10;
-    int ballL = 10;
-    int nBall = 150;
-    Ball[] palline = new Ball[nBall];
-    
-    int W = 1200;
-    int H = 1200;
-   Dimension Area = new Dimension(W,H);
+import javax.swing.*;
 
-    Random X;
-    Random Y;
+
+public class MyPanel extends JPanel implements Runnable{
+
+    Ball pallinaCheNonCeLhaFatta;
+
+    final int GAME_HEIGHT = 640;
+    final int GAME_WIDTH = 480;
+    
+    final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH,GAME_HEIGHT);
+    
+    final int BALL_WIDTH = 20;
+    final int BALL_HEIGHT = 20;
+    final int BALL_DIAMETER = 10;
+
+
+    Thread gameThread;  //crea un oggetto Thread per permettere un processo 
+
 
     public MyPanel(){
 
-       Y = new Random();
-       X = new Random();
+        this.setFocusable(true);
+        this.setBackground(Color.BLACK);
+        this.setPreferredSize(SCREEN_SIZE);
 
-        gameThread = new Thread(this);  //inizializzo l'oggetto 
-        gameThread.start();  
+        pallinaCheNonCeLhaFatta = new Ball(320, 240, HEIGHT, WIDTH);
 
-        this.setBackground(Color.BLACK);  //colora lo sfondo di nero
-
-        this.setFocusable(true);        
-        this.setPreferredSize(Area);
-
-        //pallinaCheNonCeLhaFatta = new Ball(X.nextInt(450),Y.nextInt(450),10,10); //creazione della pallina (che non c'è l'ha fatta nemmeno questa volta)
-
-        for (int i=0; i< nBall; i++)
-        palline[i] = new Ball(320,240,ballH,ballL, i);
-    
+        gameThread = new Thread(this);
+        gameThread.start();
 
     }//chiude il costruttore
 
@@ -46,45 +40,27 @@ public class MyPanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g){
 
         super.paintComponent(g);
-        
-        //pallinaCheNonCeLhaFatta.draw(g); //colorazione della pallina (a fare questo c'è l'ha fatta)
 
-        for (int i=0; i< nBall; i++)
-        palline[i].draw(g);
-    
+        pallinaCheNonCeLhaFatta.draw(g);
 
         Toolkit.getDefaultToolkit().sync();
+
     }//chiude paintComponent
 
 
     public void move(){
 
-        for(int i=0; i<nBall; i++)
-            palline[i].move();
-
+        pallinaCheNonCeLhaFatta.move();
 
     }
-
-    public void checkCollisions() {
-		
-		for (int i=0; i< nBall; i++) {
-			
-			if (palline[i].x < 0) palline[i].dx = -palline[i].dx;
-			if (palline[i].x > W - ballL) palline[i].dx = -palline[i].dx;
-			if (palline[i].y < 0) palline[i].dy = -palline[i].dy;
-			if (palline[i].y > H - ballH) palline[i].dy = -palline[i].dy;
-	
-		}
-		
-	}
 
 
     public void run(){
 
         long lastTime = System.nanoTime();
 
-        double FPS = 25;
-
+        double FPS = 25.0;
+                           
         double interval = 1000000000/FPS; // 400000000
 		
 
@@ -93,19 +69,14 @@ public class MyPanel extends JPanel implements Runnable{
 
             long now = System.nanoTime();
 
-            interval += (now - lastTime);
-
-            lastTime = now;
-
-            if(interval >= 40000000){
+            
+            if(now-lastTime > interval){
 
                 move();
 
-                checkCollisions();
-
                 repaint();
 
-                interval = 0;
+                lastTime = now;
 
            }//chiude l'if
 

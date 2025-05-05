@@ -7,12 +7,7 @@ public class MyFrame extends JFrame {
     
     MyPanel p;
 
-
-
-
     public MyFrame(){
-
-
         
         p = new MyPanel();//insatnzio parete
 
@@ -21,20 +16,21 @@ public class MyFrame extends JFrame {
 
         Container c = this.getContentPane();  //content pane
 
-        this.setTitle("DinoPONG");
+        
 
         c.add(p);   //inserirsco il panel nel contentPane
         //p.add(l);   //aggiungo l'etichetta
         //p.add(b); //aggiungo il bottone
 
-        JButton b = new JButton("cliccami");
-
-    this.pack();
+        //JButton b = new JButton("cliccami");
+        
+        this.setTitle("DinoPONG");
+               this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);     //lo rendo visibile
         this.setResizable(true);   //lo rendo modellabile
 
+ this.pack();
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
     }
