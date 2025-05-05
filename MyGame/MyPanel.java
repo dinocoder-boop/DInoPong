@@ -87,7 +87,7 @@ public class MyPanel extends JPanel implements Runnable{
 
         double FPS = 25.0;
                            
-        double interval = 100000000/FPS; // 400000000
+        double interval = 10000000/FPS; // 400000000
 		
 
     
