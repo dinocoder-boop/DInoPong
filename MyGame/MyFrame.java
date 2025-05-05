@@ -27,11 +27,11 @@ public class MyFrame extends JFrame {
         this.setTitle("DinoPONG");
                this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);     //lo rendo visibile
-        this.setResizable(true);   //lo rendo modellabile
+   //lo rendo modellabile
 
  this.pack();
 
-
+        this.setResizable(true);
 
     }
 

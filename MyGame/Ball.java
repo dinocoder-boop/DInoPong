@@ -16,13 +16,13 @@ public class Ball extends Rectangle {
     public void draw(Graphics g){
 
         g.setColor(Color.cyan);
-        g.fillOval(x, y, width, height);
+        g.fillRect(x, y, width, height);
 
     }
     public void move(){
 
        x=x+1;
-       y=y-1;
+       y=y+1;
 
     }
 
