@@ -25,7 +25,7 @@ public class MyFrame extends JFrame {
         //JButton b = new JButton("cliccami");
         
         this.setTitle("DinoPONG");
-               this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);     //lo rendo visibile
    //lo rendo modellabile
 
@@ -35,7 +35,7 @@ public class MyFrame extends JFrame {
 
 
 
-        this.setResizable(true);
+        //this.setResizable(true);
 
     }
 
