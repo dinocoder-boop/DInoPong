@@ -26,10 +26,10 @@ public class MyPanel extends JPanel implements Runnable, KeyListener{
     final int BALL_DIAMETER = 10;
 
 
-    Padell  padell1,padell2;
+    Padell padell1,padell2;
 
     final int PADELL_WIDTH = 20;
-    final int PADELL_HEIGHT = 15;
+    final int PADELL_HEIGHT = 150;
 
 
 
@@ -57,8 +57,8 @@ public class MyPanel extends JPanel implements Runnable, KeyListener{
         pallinaCheNonCeLhaFatta = new Ball((GAME_WIDTH/2-BALL_WIDTH/2),(GAME_HEIGHT/2-BALL_HEIGHT/2), BALL_WIDTH, BALL_HEIGHT);
         
 
-        padell1 = new Padell(GAME_HEIGHT/2-PADELL_HEIGHT/2, GAME_WIDTH-PADELL_WIDTH-border_distance, PADELL_WIDTH, PADELL_HEIGHT);
-       // padell2 = new Padell();
+        padell1 = new Padell(((GAME_WIDTH-GAME_WIDTH)+PADELL_WIDTH),(GAME_HEIGHT/2-PADELL_HEIGHT/2)-border_distance, PADELL_WIDTH, PADELL_HEIGHT);
+        padell2 = new Padell((GAME_WIDTH+PADELL_WIDTH),(GAME_HEIGHT/2-PADELL_HEIGHT/2)-border_distance, PADELL_WIDTH, PADELL_HEIGHT);
  
  
  
@@ -104,10 +104,14 @@ public class MyPanel extends JPanel implements Runnable, KeyListener{
 			pallinaCheNonCeLhaFatta.dy = -pallinaCheNonCeLhaFatta.dy;
 
 
-        if (padell1.x < 0)
-			padell1.x=0;
-        if (padell1.x > GAME_WIDTH-PADELL_WIDTH )
-			padell1.x = GAME_WIDTH-PADELL_WIDTH;
+        if (padell1.y < 0)	padell1.y=2;
+
+        if (padell1.y > GAME_HEIGHT-PADELL_HEIGHT )      padell1.y = GAME_HEIGHT-PADELL_HEIGHT+1;
+
+        if (padell2.y < 0)	padell2.y=2;
+
+        if (padell2.y > GAME_HEIGHT-PADELL_HEIGHT )      padell2.y = GAME_HEIGHT-PADELL_HEIGHT+1;
+			  
 	}
 
 
@@ -116,6 +120,8 @@ public class MyPanel extends JPanel implements Runnable, KeyListener{
         pallinaCheNonCeLhaFatta.move();
         
         padell1.move();
+
+        padell2.move();
 
     }
 
@@ -154,21 +160,22 @@ public class MyPanel extends JPanel implements Runnable, KeyListener{
     @Override
     public void keyPressed(KeyEvent e){
 
-        if(e.getKeyCode() == KeyEvent.VK_UP) padell1.setDY(-1);
-        if(e.getKeyCode() == KeyEvent.VK_DOWN) padell1.setDY(+1);
+        if(e.getKeyCode() == KeyEvent.VK_UP)  {System.out.println("key up");padell1.setDY(-1);}
+        if(e.getKeyCode() == KeyEvent.VK_DOWN){System.out.println("key up");padell1.setDY(+1);}
 
-        if(e.getKeyCode() == KeyEvent.VK_W) padell2.setDY(-1);
-        if(e.getKeyCode() == KeyEvent.VK_S) padell2.setDY(+1);
+        if(e.getKeyCode() == KeyEvent.VK_W)  {System.out.println("key up");padell2.setDY(-1);}
+        if(e.getKeyCode() == KeyEvent.VK_S){System.out.println("key up");padell2.setDY(+1);}
     }
 
     @Override
     public void keyReleased(KeyEvent e){
 
-        if(e.getKeyCode() == KeyEvent.VK_UP) padell1.setDY(0);
-        if(e.getKeyCode() == KeyEvent.VK_DOWN) padell1.setDY(0);
+        if(e.getKeyCode() == KeyEvent.VK_UP){System.out.println("key down"); padell1.setDY(0);}
+        if(e.getKeyCode() == KeyEvent.VK_DOWN){System.out.println("key down"); padell1.setDY(0);}
 
-        if(e.getKeyCode() == KeyEvent.VK_W) padell2.setDY(0);
-        if(e.getKeyCode() == KeyEvent.VK_S) padell2.setDY(0);
+        if(e.getKeyCode() == KeyEvent.VK_W){System.out.println("key down"); padell2.setDY(0);}
+        if(e.getKeyCode() == KeyEvent.VK_S){System.out.println("key down"); padell2.setDY(0);}
+
     }
 
     @Override
