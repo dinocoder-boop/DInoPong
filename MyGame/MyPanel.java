@@ -58,7 +58,7 @@ public class MyPanel extends JPanel implements Runnable, KeyListener{
         
 
         padell1 = new Padell(((GAME_WIDTH-GAME_WIDTH)+PADELL_WIDTH),(GAME_HEIGHT/2-PADELL_HEIGHT/2)-border_distance, PADELL_WIDTH, PADELL_HEIGHT);
-        padell2 = new Padell((GAME_WIDTH+PADELL_WIDTH),(GAME_HEIGHT/2-PADELL_HEIGHT/2)-border_distance, PADELL_WIDTH, PADELL_HEIGHT);
+        padell2 = new Padell((GAME_WIDTH-PADELL_WIDTH)-PADELL_WIDTH,(GAME_HEIGHT/2-PADELL_HEIGHT/2)-border_distance, PADELL_WIDTH, PADELL_HEIGHT);
  
  
  
@@ -160,21 +160,21 @@ public class MyPanel extends JPanel implements Runnable, KeyListener{
     @Override
     public void keyPressed(KeyEvent e){
 
-        if(e.getKeyCode() == KeyEvent.VK_UP)  {System.out.println("key up");padell1.setDY(-1);}
-        if(e.getKeyCode() == KeyEvent.VK_DOWN){System.out.println("key up");padell1.setDY(+1);}
+        if(e.getKeyCode() == KeyEvent.VK_UP)  {System.out.println("key up");padell2.setDY(-1);}
+        if(e.getKeyCode() == KeyEvent.VK_DOWN){System.out.println("key up");padell2.setDY(+1);}
 
-        if(e.getKeyCode() == KeyEvent.VK_W)  {System.out.println("key up");padell2.setDY(-1);}
-        if(e.getKeyCode() == KeyEvent.VK_S){System.out.println("key up");padell2.setDY(+1);}
+        if(e.getKeyCode() == KeyEvent.VK_W)  {System.out.println("key up");padell1.setDY(-1);}
+        if(e.getKeyCode() == KeyEvent.VK_S){System.out.println("key up");padell1.setDY(+1);}
     }
 
     @Override
     public void keyReleased(KeyEvent e){
 
-        if(e.getKeyCode() == KeyEvent.VK_UP){System.out.println("key down"); padell1.setDY(0);}
-        if(e.getKeyCode() == KeyEvent.VK_DOWN){System.out.println("key down"); padell1.setDY(0);}
+        if(e.getKeyCode() == KeyEvent.VK_UP){System.out.println("key down"); padell2.setDY(0);}
+        if(e.getKeyCode() == KeyEvent.VK_DOWN){System.out.println("key down"); padell2.setDY(0);}
 
-        if(e.getKeyCode() == KeyEvent.VK_W){System.out.println("key down"); padell2.setDY(0);}
-        if(e.getKeyCode() == KeyEvent.VK_S){System.out.println("key down"); padell2.setDY(0);}
+        if(e.getKeyCode() == KeyEvent.VK_W){System.out.println("key down"); padell1.setDY(0);}
+        if(e.getKeyCode() == KeyEvent.VK_S){System.out.println("key down"); padell1.setDY(0);}
 
     }
 
