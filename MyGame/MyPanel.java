@@ -3,7 +3,6 @@ package MyGame;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Random;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -93,16 +92,71 @@ public class MyPanel extends JPanel implements Runnable, KeyListener{
     }//chiude paintComponent
 
     public void checkCollisions() {
-		
-		if (pallinaCheNonCeLhaFatta.x > GAME_WIDTH - BALL_WIDTH)
-			pallinaCheNonCeLhaFatta.dx = -pallinaCheNonCeLhaFatta.dx;
-		if (pallinaCheNonCeLhaFatta.x < 0)
-			pallinaCheNonCeLhaFatta.dx = -pallinaCheNonCeLhaFatta.dx;
-		if (pallinaCheNonCeLhaFatta.y < 0)
-			pallinaCheNonCeLhaFatta.dy = -pallinaCheNonCeLhaFatta.dy;
-		if (pallinaCheNonCeLhaFatta.y > GAME_HEIGHT - BALL_HEIGHT)
+	
+		// Se colpisce il bordo sinistro
+		if (pallinaCheNonCeLhaFatta.x < 0) {
+			// Respawn al centro
+			pallinaCheNonCeLhaFatta = new Ball(GAME_WIDTH/2 - BALL_WIDTH/2, GAME_HEIGHT/2 - BALL_HEIGHT/2, BALL_WIDTH, BALL_HEIGHT);
+			pallinaCheNonCeLhaFatta.setDX(1);
+		}
+
+		// Se colpisce il bordo destro
+		if (pallinaCheNonCeLhaFatta.x > GAME_WIDTH - BALL_WIDTH) {
+			// Respawn al centro
+			pallinaCheNonCeLhaFatta = new Ball(GAME_WIDTH/2 - BALL_WIDTH/2, GAME_HEIGHT/2 - BALL_HEIGHT/2, BALL_WIDTH, BALL_HEIGHT);
+			pallinaCheNonCeLhaFatta.setDX(-1);
+		}
+
+		// Rimbalza solo su soffitto e fondo
+		if (pallinaCheNonCeLhaFatta.y < 0) { 
 			pallinaCheNonCeLhaFatta.dy = -pallinaCheNonCeLhaFatta.dy;
 
+		}
+		
+		if (pallinaCheNonCeLhaFatta.y > GAME_HEIGHT - BALL_HEIGHT) {
+			pallinaCheNonCeLhaFatta.dy = -pallinaCheNonCeLhaFatta.dy;
+
+		}
+
+		if (pallinaCheNonCeLhaFatta.intersects(padell1)) {
+			
+			pallinaCheNonCeLhaFatta.dx = -pallinaCheNonCeLhaFatta.dx;
+
+			pallinaCheNonCeLhaFatta.hits++;
+			
+			if (pallinaCheNonCeLhaFatta.hits<4) 
+				pallinaCheNonCeLhaFatta.setDX(-1);
+			if (pallinaCheNonCeLhaFatta.hits>=4 && pallinaCheNonCeLhaFatta.hits<12) 
+				pallinaCheNonCeLhaFatta.setDX(-1.6);
+			if (pallinaCheNonCeLhaFatta.hits>=12) 
+				pallinaCheNonCeLhaFatta.setDX(-2);
+			
+		}
+
+		if (pallinaCheNonCeLhaFatta.intersects(padell2)) {
+			pallinaCheNonCeLhaFatta.dx = -pallinaCheNonCeLhaFatta.dx;
+
+			pallinaCheNonCeLhaFatta.hits++;
+			
+			if (pallinaCheNonCeLhaFatta.hits<4) 
+				pallinaCheNonCeLhaFatta.setDX(1);
+			if (pallinaCheNonCeLhaFatta.hits>=4 && pallinaCheNonCeLhaFatta.hits<12) 
+				pallinaCheNonCeLhaFatta.setDX(1.6);
+			if (pallinaCheNonCeLhaFatta.hits>=12) 
+				pallinaCheNonCeLhaFatta.setDX(2);
+		}
+
+
+        
+	/*	if (pallinaCheNonCeLhaFatta.x > GAME_WIDTH - BALL_WIDTH)
+			pallinaCheNonCeLhaFatta.dx = -pallinaCheNonCeLha.dx;
+		if (pallinaCheNonCeLhaFatta.x < 0)
+			pallinaCheNonCeLha.dx = -pallinaCheNonCeLha.dx;
+		if (pallinaCheNonCeLhaFatta.y < 0)
+			pallinaCheNonCeLha.dy = -pallinaCheNonCeLha.dy;
+		if (pallinaCheNonCeLhaFatta.y > GAME_HEIGHT - BALL_HEIGHT)
+			pallinaCheNonCeLha.dy = -pallinaCheNonCeLha.dy;
+*/
 
         if (padell1.y < 0)	padell1.y=2;
 

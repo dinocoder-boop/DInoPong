@@ -3,13 +3,17 @@ package MyGame;
 import java.awt.*;
 import javax.swing.*;
 import java.util.Random;
-    //pallina che non c'è l'ha fatta
+    //pallina che non c'ha fatta
 
 public class Ball extends Rectangle {
 
     int dx;
     int dy;
     Random roulet;
+
+    public int hits;
+
+    final int ballSpeed = 5;
 
 
     public Ball(int x, int y, int height, int width){
@@ -18,16 +22,13 @@ public class Ball extends Rectangle {
         
         roulet = new Random();
 
-        dx = roulet.nextInt(10);
-        dy = roulet.nextInt(10);
 
-        boolean direzione = roulet.nextBoolean();
+        int direzione_iniziale = roulet.nextInt(2);
 
-        if(direzione == true){
+		if (direzione_iniziale==0) direzione_iniziale=-1;
 
-            dy = -dy;
-
-        }
+		setDX(direzione_iniziale);
+		setDY(direzione_iniziale);
         
     }//chiusura del costruttore
 
@@ -44,6 +45,19 @@ public class Ball extends Rectangle {
        y=y+dy;
 
     }
+
+   public void setDX(double direzione){
+
+		dx = (int)(direzione * ballSpeed);
+    }
+
+    public void setDY(double direzione){
+
+		dy = (int)(direzione * ballSpeed);
+
+
+    }
+
 
 
 }//endl class ball
