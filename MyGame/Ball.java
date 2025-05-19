@@ -19,6 +19,8 @@ public class Ball extends Rectangle {
     public Ball(int x, int y, int height, int width){
 
         super(x, y, height, width);   //costruttore della pallina
+
+        this.hits = 0;
         
         roulet = new Random();
 
@@ -39,25 +41,25 @@ public class Ball extends Rectangle {
 
     }
     
-    public void move(){
 
-       x=x+dx;
-       y=y+dy;
-
-    }
 
    public void setDX(double direzione){
 
 		dx = (int)(direzione * ballSpeed);
+
     }
 
     public void setDY(double direzione){
 
 		dy = (int)(direzione * ballSpeed);
 
-
     }
 
+    public void move(){
 
+       x=x+dx;
+       y=y+dy;
+
+    }
 
 }//endl class ball

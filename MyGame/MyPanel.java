@@ -1,16 +1,18 @@
 package MyGame;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.*;
 
 
+import java.io.*;
+import javax.sound.sampled.*;
+
 public class MyPanel extends JPanel implements Runnable, KeyListener{
 
-    Ball pallinaCheNonCeLhaFatta;
+
 
     //int GAME_HEIGHT = 900;
     //int GAME_WIDTH = 768;
@@ -22,7 +24,7 @@ public class MyPanel extends JPanel implements Runnable, KeyListener{
     
     final int BALL_WIDTH = 20;
     final int BALL_HEIGHT = 20;
-    final int BALL_DIAMETER = 10;
+   // final int BALL_DIAMETER = 10;
 
 
     Padell padell1,padell2;
@@ -36,6 +38,9 @@ public class MyPanel extends JPanel implements Runnable, KeyListener{
 
     Border border;
 
+    Ball pallinaCheNonCeLhaFatta;
+
+    Punteggio punti;
     
 
     Thread gameThread;  //crea un oggetto Thread per permettere un processo 
@@ -59,7 +64,7 @@ public class MyPanel extends JPanel implements Runnable, KeyListener{
         padell1 = new Padell(((GAME_WIDTH-GAME_WIDTH)+PADELL_WIDTH),(GAME_HEIGHT/2-PADELL_HEIGHT/2)-border_distance, PADELL_WIDTH, PADELL_HEIGHT);
         padell2 = new Padell((GAME_WIDTH-PADELL_WIDTH)-PADELL_WIDTH,(GAME_HEIGHT/2-PADELL_HEIGHT/2)-border_distance, PADELL_WIDTH, PADELL_HEIGHT);
  
- 
+        punti = new Punteggio(GAME_HEIGHT, GAME_WIDTH);
  
  
         /*       this.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -87,6 +92,8 @@ public class MyPanel extends JPanel implements Runnable, KeyListener{
         padell1.draw(g);
         padell2.draw(g);
 
+        punti.draw(g);
+
         Toolkit.getDefaultToolkit().sync();
 
     }//chiude paintComponent
@@ -98,6 +105,13 @@ public class MyPanel extends JPanel implements Runnable, KeyListener{
 			// Respawn al centro
 			pallinaCheNonCeLhaFatta = new Ball(GAME_WIDTH/2 - BALL_WIDTH/2, GAME_HEIGHT/2 - BALL_HEIGHT/2, BALL_WIDTH, BALL_HEIGHT);
 			pallinaCheNonCeLhaFatta.setDX(1);
+
+        	//-----play sound ------ 
+			playSound("point.wav"); 
+			//----------------------
+
+            punti.addPointP2(); 
+
 		}
 
 		// Se colpisce il bordo destro
@@ -105,37 +119,100 @@ public class MyPanel extends JPanel implements Runnable, KeyListener{
 			// Respawn al centro
 			pallinaCheNonCeLhaFatta = new Ball(GAME_WIDTH/2 - BALL_WIDTH/2, GAME_HEIGHT/2 - BALL_HEIGHT/2, BALL_WIDTH, BALL_HEIGHT);
 			pallinaCheNonCeLhaFatta.setDX(-1);
+
+            //-----play sound ------ 
+			playSound("point.wav"); 
+			//----------------------
+
+            punti.addPointP1();
+
 		}
 
 		// Rimbalza solo su soffitto e fondo
 		if (pallinaCheNonCeLhaFatta.y < 0) { 
 			pallinaCheNonCeLhaFatta.dy = -pallinaCheNonCeLhaFatta.dy;
 
+            //-----play sound ------ 
+			playSound("boundary.wav"); 
+			//----------------------
+
 		}
 		
 		if (pallinaCheNonCeLhaFatta.y > GAME_HEIGHT - BALL_HEIGHT) {
 			pallinaCheNonCeLhaFatta.dy = -pallinaCheNonCeLhaFatta.dy;
 
+            //-----play sound ------ 
+			playSound("boundary.wav"); 
+			//----------------------
+
 		}
+
+
+
+
 
 		if (pallinaCheNonCeLhaFatta.intersects(padell1)) {
 			
-			pallinaCheNonCeLhaFatta.dx = -pallinaCheNonCeLhaFatta.dx;
+			pallinaCheNonCeLhaFatta.dx = -(pallinaCheNonCeLhaFatta.dx);
+			// Sposta la pallina subito fuori dal padell1
+
+                      System.out.println(pallinaCheNonCeLhaFatta.dx);
+
+            System.out.println();
+            System.out.println("pallina colpita");
+			System.out.println(pallinaCheNonCeLhaFatta.hits);
+            System.out.println();
 
 			pallinaCheNonCeLhaFatta.hits++;
+
+            //-----play sound ------ 
+			playSound("paddle.wav"); 
+			//----------------------
+/*
+			if (pallinaCheNonCeLhaFatta.hits>4)     pallinaCheNonCeLhaFatta.setDX(-(pallinaCheNonCeLhaFatta.dx+2));
 			
-			if (pallinaCheNonCeLhaFatta.hits<4) 
-				pallinaCheNonCeLhaFatta.setDX(-1);
-			if (pallinaCheNonCeLhaFatta.hits>=4 && pallinaCheNonCeLhaFatta.hits<12) 
-				pallinaCheNonCeLhaFatta.setDX(-1.6);
-			if (pallinaCheNonCeLhaFatta.hits>=12) 
-				pallinaCheNonCeLhaFatta.setDX(-2);
+            if (pallinaCheNonCeLhaFatta.hits>=4 && pallinaCheNonCeLhaFatta.hits<12)     pallinaCheNonCeLhaFatta.setDX(-1.6);
+		
+            if (pallinaCheNonCeLhaFatta.hits>=12)   pallinaCheNonCeLhaFatta.setDX(-2);
+*/
+        }
+
+
+
+		if (pallinaCheNonCeLhaFatta.intersects(padell2)) {
+			pallinaCheNonCeLhaFatta.dx = -pallinaCheNonCeLhaFatta.dx;
+			// Sposta la pallina subito fuori dal padell2
+			pallinaCheNonCeLhaFatta.hits++;
+
+            //-----play sound ------ 
+			playSound("paddle.wav"); 
+			//----------------------
+			
+
+        }
+
+
+
+/*
+
+
+
+
+
+
+            System.out.println();
+            System.out.println("pallina colpita");
+			System.out.println(pallinaCheNonCeLhaFatta.hits);
+            System.out.println();
+            
+
 			
 		}
 
 		if (pallinaCheNonCeLhaFatta.intersects(padell2)) {
 			pallinaCheNonCeLhaFatta.dx = -pallinaCheNonCeLhaFatta.dx;
-
+			// Sposta la pallina subito fuori dal padell2
+			pallinaCheNonCeLhaFatta.x = padell2.x - BALL_WIDTH;
 			pallinaCheNonCeLhaFatta.hits++;
 			
 			if (pallinaCheNonCeLhaFatta.hits<4) 
@@ -156,7 +233,8 @@ public class MyPanel extends JPanel implements Runnable, KeyListener{
 			pallinaCheNonCeLha.dy = -pallinaCheNonCeLha.dy;
 		if (pallinaCheNonCeLhaFatta.y > GAME_HEIGHT - BALL_HEIGHT)
 			pallinaCheNonCeLha.dy = -pallinaCheNonCeLha.dy;
-*/
+   */
+
 
         if (padell1.y < 0)	padell1.y=2;
 
@@ -234,5 +312,15 @@ public class MyPanel extends JPanel implements Runnable, KeyListener{
 
     @Override
 	public void keyTyped(KeyEvent e){}
+
+    	public void playSound(String name) { try {
+        Clip suono = AudioSystem.getClip();
+        suono.open(AudioSystem.getAudioInputStream(getClass().getResource(name)));
+        suono.start();
+       }
+    catch (Exception exc) {
+         exc.printStackTrace(System.out);
+       }
+	} //end playSound()
 
 }//chiude la classe
